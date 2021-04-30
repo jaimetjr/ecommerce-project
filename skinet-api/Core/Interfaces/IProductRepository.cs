@@ -13,5 +13,9 @@ namespace Core.Interfaces
         // ReadOnlyList is a specific type of list 
         // as the name suggest is a read only type
         Task<IReadOnlyList<Product>> GetProducts();
+        Task<IReadOnlyList<ProductBrand>> GetProductBrands();
+        Task<IReadOnlyList<ProductType>> GetProductTypes();
+
+
     }
 }
