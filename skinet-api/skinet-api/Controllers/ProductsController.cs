@@ -15,36 +15,42 @@ namespace skinet_api.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _repository;
-        public ProductsController(IProductRepository repository)
+        private readonly IGenericRepository<Product> _productsRepo;
+        private readonly IGenericRepository<ProductBrand> _brandRepo;
+        private readonly IGenericRepository<ProductType> _typeRepo;
+        public ProductsController(IGenericRepository<Product> productsRepo,
+                                  IGenericRepository<ProductBrand> brandRepo,
+                                  IGenericRepository<ProductType> typeRepo)
         {
-            _repository = repository;
+            _productsRepo = productsRepo;
+            _brandRepo = brandRepo;
+            _typeRepo = typeRepo;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var products = await _repository.GetProducts();
+            var products = await _productsRepo.ListAllAsync();
             return Ok(products);
         }
-            
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            return await _repository.GetProductById(id);
+            return await _productsRepo.GetByIdAsync(id);
         }
 
         [HttpGet("brands")]
         public async Task<ActionResult<List<ProductBrand>>> GetProductBrands()
         {
-            var brands = await _repository.GetProductBrands();
+            var brands = await _brandRepo.ListAllAsync();
             return Ok(brands);
         }
 
         [HttpGet("types")]
         public async Task<ActionResult<List<ProductType>>> GetProductTypes()
         {
-            var types = await _repository.GetProductTypes();
+            var types = await _typeRepo.ListAllAsync();
             return Ok(types);
         }
     }
