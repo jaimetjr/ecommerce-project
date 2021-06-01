@@ -31,7 +31,7 @@ namespace skinet_api
             {
                 options.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:44311");
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
                 });
             });
         }
@@ -47,7 +47,7 @@ namespace skinet_api
             app.UseRouting();
             app.UseStaticFiles();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors("CorsPolicy");  
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
